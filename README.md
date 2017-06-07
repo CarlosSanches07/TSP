@@ -8,3 +8,11 @@ This is a project from the Analisys and Software Development course from UTFPR-C
 -----
 
 Our goal is to develop a algorythim to solve the TSP, looking for the best performance.
+
+----
+
+Developers :
+
+	Neto Boralli
+	Carlos Sanches
+	Rodrigo Miyashiro
