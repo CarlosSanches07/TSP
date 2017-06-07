@@ -3,7 +3,7 @@ TSP - Travel Salesman Problem, is a problem that try to determine what is the sh
 
 -----
 
-This is a project from the Analisys and Software Development course from UTFPR-CP
+This is a project from the Analysis and Software Development course from UTFPR-CP
 
 -----
 
