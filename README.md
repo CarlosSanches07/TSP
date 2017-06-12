@@ -13,6 +13,6 @@ Our goal is to develop an algorythim to solve the TSP, looking for the best perf
 
 Developers :
 
-	Neto Boralli
+	Nelson Boralli Neto
 	Carlos Sanches
 	Rodrigo Miyashiro
