@@ -73,8 +73,8 @@ List3D* searchCities(Q3D* Q, int city){
 }
 
 int distance3D(Q3D* Queue, int c1, int c2){
-	List3D *coordinate1 = searchCities(Queue, c1);
-	List3D *coordinate2 = searchCities(Queue, c2);
+	List3D *coordinate1 = searchCities(Queue, c1+1);
+	List3D *coordinate2 = searchCities(Queue, c2+1);
 	
 	return sqrt(pow((coordinate1->x - coordinate2->x), 2) + pow((coordinate1->y - coordinate2->y), 2) +  pow((coordinate1->z - coordinate2->z), 2));
 }
