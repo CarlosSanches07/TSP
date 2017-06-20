@@ -58,7 +58,7 @@ Queue* alloc2D(FILE* tsp){
 	*/
 	do{
 		if(!strcmp(str,"NODE_COORD_SECTION")){
-			printf("Start to Alloc the Queue... %s\n\n",str);
+			printf("Start to Alloc the Queue... \n\n");
 			break;
 		}
 	}while(fscanf(tsp, "%s",str)!= EOF);
@@ -68,11 +68,8 @@ Queue* alloc2D(FILE* tsp){
 	/*
 		Inserts the coordinates of each city in the queue
 	*/
-
-	while(fscanf(tsp, "%s %s %s", city, x, y)!= EOF){
-		printf("go");
+	while(fscanf(tsp, "%s %s %s", city, x, y)!= EOF)
 		insertQueue(Q, atoi(city), atof(x), atof(y));
-	}
 
 	return Q;
 }
@@ -104,11 +101,9 @@ void show_cost_matrix_2D(float** matrix, int size){
 	}
 }
 
-void cost_matrix_2D(Queue* Q){
+float** cost_matrix_2D(Queue* Q){
 	int i,j;
-	printf("%d",Q->size);
 	float** matrix =(float**)malloc(Q->size * sizeof(float*));
-	printf("%d",Q->size);
 	for(i = 0; i < Q->size; i++)
 		matrix[i] =(float*)malloc(Q->size * sizeof(float));
 		
@@ -121,5 +116,5 @@ void cost_matrix_2D(Queue* Q){
 			}
 		}
 	}
-	show_cost_matrix_2D(matrix, Q->size);
+	return matrix;
 }

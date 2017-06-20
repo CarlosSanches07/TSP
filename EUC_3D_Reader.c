@@ -2,7 +2,8 @@
 #include<string.h>
 
 typedef struct list3D{
-	int index, x, y, z;
+	int index;
+	float x, y, z;
 	struct list3D* next;
 }List3D;
 
@@ -12,11 +13,15 @@ typedef struct Queue3D{
 	List3D* end;
 }Q3D;
 
-Q3D* create(){
-	return (Q3D*) malloc(sizeof(Q3D));
+Q3D* create3D(){
+	Q3D* Q = (Q3D*) malloc(sizeof(Q3D));
+	Q->size = 0;
+	Q->start = NULL;
+	Q->end = NULL;
+	return Q;
 }
 
-void insert3D(Q3D* Q, int id, int x, int y, int z){
+void insert3D(Q3D* Q, int id, float x, float y, float z){
 	List3D* newList = (List3D*) malloc(sizeof(List3D));
 	newList->index = id;
 	newList->x = x;
@@ -38,25 +43,25 @@ void insert3D(Q3D* Q, int id, int x, int y, int z){
 void printQ(Q3D* Q){
 	List3D * aux;
 	for(aux = Q->start; aux != NULL; aux= aux->next){
-		printf("\nCidade: %d X: %d Y: %d Z: %d",aux->index, aux->x, aux->y, aux->z);
+		printf("\nCity: %d X: %f Y: %f Z: %f",aux->index, aux->x, aux->y, aux->z);
 	}
 	printf("\n");
 }
 
-Q3D* aalloc3D(FILE* file){
+Q3D* alloc3D(FILE* file){
 	char string[100], city[4], x[50], y[50], z[50];
 	
 	do{
 		if(!strcmp(string, "NODE_COORD_SECTION")){
-			printf("Alocando fila...\n\n");
+			printf("Start to Alloc the queue...\n\n");
 			break;
 		}
 	}while(fscanf(file, "%s", string) != EOF);
 	
-	Q3D* Queue = create();
+	Q3D* Queue = create3D();
 	
 	while(fscanf(file, "%s" "%s" "%s" "%s", city, x, y, z) != EOF){
-		insert3D(Queue, atoi(city), atoi(x), atoi(y), atoi(z));
+		insert3D(Queue, atoi(city), atof(x), atof(y), atof(z));
 	}
 	
 	return Queue;
@@ -72,31 +77,30 @@ List3D* searchCities(Q3D* Q, int city){
 	return searcher;
 }
 
-int distance3D(Q3D* Queue, int c1, int c2){
-	List3D *coordinate1 = searchCities(Queue, c1);
-	List3D *coordinate2 = searchCities(Queue, c2);
+float distance3D(Q3D* Queue, int c1, int c2){
+	List3D *coordinate1 = searchCities(Queue, c1+1);
+	List3D *coordinate2 = searchCities(Queue, c2+1);
 	
 	return sqrt(pow((coordinate1->x - coordinate2->x), 2) + pow((coordinate1->y - coordinate2->y), 2) +  pow((coordinate1->z - coordinate2->z), 2));
 }
 
-void printMatrix(int** matrix, int size){
+void printMatrix(float** matrix, int size){
 	int i, j;
 	
 	for(i = 0; i < size; i++){
 		for(j = 0; j < size; j++){
-			printf("%d\t", matrix[i][j]);
+			printf("%f\t", matrix[i][j]);
 		}
 		printf("\n");
 	}
 }
 
-void compleerMatrix(Q3D* Queue){
-	int i, j;
-	int** matrix = (int**) malloc(Queue->size * sizeof(int*));
+float** compleerMatrix(Q3D* Queue){
+	int i,j;
+	float** matrix = (float**) malloc(Queue->size * sizeof(float*));
 	for(i = 0; i < Queue->size; i++){
-		matrix[i] = (int*) malloc(Queue->size * sizeof(int));
+		matrix[i] = (float*) malloc(Queue->size * sizeof(float));
 	}
-	
 	for(i = 0; i < Queue->size; i++){
 		for(j = 0; j < Queue->size; j++){
 			if(i == j)
@@ -106,5 +110,5 @@ void compleerMatrix(Q3D* Queue){
 		}
 	}
 	
-	printMatrix(matrix, Queue->size);
+	return matrix;
 }
