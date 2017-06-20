@@ -78,13 +78,13 @@ List3D* searchCities(Q3D* Q, int city){
 }
 
 float distance3D(Q3D* Queue, int c1, int c2){
-	List3D *coordinate1 = searchCities(Queue, c1);
-	List3D *coordinate2 = searchCities(Queue, c2);
+	List3D *coordinate1 = searchCities(Queue, c1+1);
+	List3D *coordinate2 = searchCities(Queue, c2+1);
 	
 	return sqrt(pow((coordinate1->x - coordinate2->x), 2) + pow((coordinate1->y - coordinate2->y), 2) +  pow((coordinate1->z - coordinate2->z), 2));
 }
 
-void printMatrix(int** matrix, int size){
+void printMatrix(float** matrix, int size){
 	int i, j;
 	
 	for(i = 0; i < size; i++){
@@ -97,9 +97,9 @@ void printMatrix(int** matrix, int size){
 
 void compleerMatrix(Q3D* Queue){
 	int i,j;
-	int** matrix = (int**) malloc(Queue->size * sizeof(int*));
+	float** matrix = (float**) malloc(Queue->size * sizeof(float*));
 	for(i = 0; i < Queue->size; i++){
-		matrix[i] = (int*) malloc(Queue->size * sizeof(int));
+		matrix[i] = (float*) malloc(Queue->size * sizeof(float));
 	}
 	for(i = 0; i < Queue->size; i++){
 		for(j = 0; j < Queue->size; j++){
